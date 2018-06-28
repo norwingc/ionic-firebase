@@ -6,12 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { DetailPage } from '../pages/detail/detail';
 
-import { HttpModule } from '@angular/http';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireModule } from 'angularfire2';
-import { FirebaseServiceProvider } from './../providers/firebase-service/firebase-service';
-
+import { NoteService } from '../services/notes.services';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDLHpkOhYSNN51BF4h-DlXj-15IwewKS6g",
@@ -25,24 +22,23 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    DetailPage
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    DetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    FirebaseServiceProvider,
+    NoteService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

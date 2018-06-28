@@ -1,29 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { NoteService } from '../../services/notes.services';
+import { DetailPage } from '../detail/detail';
 
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
+    notes = [];
 
-    itemsList: FirebaseListObservable<any[]>;
-    newItem = '';
+    @ViewChild('myNav') nav: NavController
 
-    constructor(public navCtrl: NavController, public firebaseServiceProvider: FirebaseServiceProvider) {
-        this.itemsList = firebaseServiceProvider.getItems();
-        console.log(this.itemsList);
+    constructor(public navCtrl: NavController, public noteService: NoteService) {
+        this.notes = noteService.getNotes();
     }
 
-    storeItem(){
-        this.firebaseServiceProvider.storeItem(this.newItem);
+    //*
+     * [goToDatail description]
+     * @param  id [description]
+     * @return    [description]
+     */
+    public goToDatail(id){
+        this.navCtrl.push(DetailPage, {id:id});
     }
 
-    removeItem(id){
-        this.firebaseServiceProvider.removeItem(id);
+    /**
+     * [storeNote description]
+     * @return [description]
+     */
+    public storeNote(){
+        this.navCtrl.push(DetailPage, {id:0});
     }
 
 }

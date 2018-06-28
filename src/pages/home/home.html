@@ -1,33 +1,18 @@
 <ion-header>
     <ion-navbar color="primary">
         <ion-title>
-            Items List
+            Notes List
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-row>
-        <ion-col col-9>
-            <ion-item>
-                <ion-input type="text" [(ngModel)]="newItem" placeholder="New Item"></ion-input>
-            </ion-item>
-        </ion-col>
-        <ion-col>
-            <button ion-button (click)="storeItem()">Store</button>
-        </ion-col>
-    </ion-row>
-
     <ion-list>
-        <ion-item-sliding *ngFor="let item of itemsList | async">
-            <ion-item>
-                {{ item.$value }}
-            </ion-item>
-            <ion-item-options slide="right">
-                <button io-button color="danger" icon-only (click)="removeItem(item.$key)">
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
+        <button ion-item *ngFor="let note of notes" (click)="goToDatail(note.id)">
+            {{ note.title }}
+        </button>
     </ion-list>
+    <div padding>
+        <button ion-button full (click)="storeNote()">Add Note</button>
+    </div>
 </ion-content>
