@@ -10,7 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
-import { FirebaseService } from './../providers/firebase-service';
+import { FirebaseServiceProvider } from './../providers/firebase-service/firebase-service';
 
 
 const firebaseConfig = {
@@ -30,7 +30,7 @@ const firebaseConfig = {
   imports: [
     BrowserModule,
     HttpModule,
-    AngularFireModule,
+    AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)
   ],
@@ -42,7 +42,7 @@ const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    FirebaseService,
+    FirebaseServiceProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

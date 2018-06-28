@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { AngularFireModule } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /*
   Generated class for the FirebaseServiceProvider provider.
@@ -12,10 +12,18 @@ import { AngularFireModule } from 'angularfire2/database';
 @Injectable()
 export class FirebaseServiceProvider {
 
-  constructor(public afd: AngularFireDatabase) { }
+    constructor(public afd: AngularFireDatabase) { }
 
-  getItems(){
-      return this.afd.list('/list/');
-  }
+    getItems(){
+        return this.afd.list('/notes/');
+    }
+
+    storeItem(name){
+        this.afd.list('/notes/').push(name);
+    }
+
+    removeItem(id){
+        this.afd.list('/notes/').remove(id);
+    }
 
 }

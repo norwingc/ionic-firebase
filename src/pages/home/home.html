@@ -1,14 +1,33 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>
+            Items List
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+    <ion-row>
+        <ion-col col-9>
+            <ion-item>
+                <ion-input type="text" [(ngModel)]="newItem" placeholder="New Item"></ion-input>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <button ion-button (click)="storeItem()">Store</button>
+        </ion-col>
+    </ion-row>
+
+    <ion-list>
+        <ion-item-sliding *ngFor="let item of itemsList | async">
+            <ion-item>
+                {{ item.$value }}
+            </ion-item>
+            <ion-item-options slide="right">
+                <button io-button color="danger" icon-only (click)="removeItem(item.$key)">
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>
