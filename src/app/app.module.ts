@@ -10,6 +10,10 @@ import { DetailPage } from '../pages/detail/detail';
 
 import { NoteService } from '../services/notes.services';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 const firebaseConfig = {
     apiKey: "AIzaSyDLHpkOhYSNN51BF4h-DlXj-15IwewKS6g",
     authDomain: "project-ionic-first.firebaseapp.com",
@@ -27,7 +31,10 @@ const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

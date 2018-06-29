@@ -11,13 +11,17 @@ import { DetailPage } from '../detail/detail';
 export class HomePage {
     notes = [];
 
-    @ViewChild('myNav') nav: NavController
+    @ViewChild('myNav') nav: NavController;
 
     constructor(public navCtrl: NavController, public noteService: NoteService) {
-        this.notes = noteService.getNotes();
+        //console.log(noteService.getNotes());
+        noteService.getNotes().valueChanges().subscribe( notes => {
+            console.log(notes);
+            this.notes = notes;
+        });﻿
     }
 
-    //*
+    /**
      * [goToDatail description]
      * @param  id [description]
      * @return    [description]

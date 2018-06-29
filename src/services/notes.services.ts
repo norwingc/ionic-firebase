@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database/database';
 
 @Injectable()
 export class NoteService{
-    notes = [
-        {id:1, title:"Nota1", description:"esta es la decripcion 1"},
-        {id:2, title:"Nota2", description:"esta es la decripcion 2"},
-        {id:3, title:"Nota3", description:"esta es la decripcion 3"},
-    ];
+
+    constructor(public afDB: AngularFireDatabase){}
+
+    notes = [];
 
     /**
      * [getNotes description]
      * @return [description]
      */
-    public getNotes(){
-        return this.notes;
+    public getNotes() {
+        //return this.notes;
+        return this.afDB.list('/notes/');
     }
 
     /**
@@ -22,9 +23,10 @@ export class NoteService{
      * @return    [description]
      */
     public getNote(id){
-        return this.notes.filter(function(e, i){
+        /*return this.notes.filter(function(e, i){
             return e.id == id
-        })[0] || { id:null, title: null, description: null };
+        })[0] || { id:null, title: null, description: null };*/
+        return this.afDB.object('/notes/'+id);
     }
 
     /**
@@ -33,7 +35,8 @@ export class NoteService{
      * @return      [description]
      */
     public storeNote(note){
-        this.notes.push(note);
+        //this.notes.push(note);
+        this.afDB.database.ref('/notes/'+note.id).set(note);
     }
 
     /**
@@ -42,11 +45,12 @@ export class NoteService{
      * @return      [description]
      */
     public updateNote(note){
-        for(let i = 0; i < this.notes.length; i++){
+        /*for(let i = 0; i < this.notes.length; i++){
             if(this.notes[i].id == note.id){
                 this.notes[i] = note;
             }
-        }
+        }*/
+        this.afDB.database.ref('/notes/'+note.id).set(note);
     }
 
     /**
@@ -55,10 +59,11 @@ export class NoteService{
      * @return      [description]
      */
     public deleteNote(note){
-        for(let i = 0; i < this.notes.length; i++){
+        /*for(let i = 0; i < this.notes.length; i++){
             if(this.notes[i].id == note.id){
                 this.notes.splice(i, 1);
             }
-        }
+        }*/
+        this.afDB.database.ref('/notes/'+note.id).remove();
     }
 }
